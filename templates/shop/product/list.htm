@@ -1,0 +1,49 @@
+{%	extends	"shop/base.htm"	%}
+
+{%	load static	%}
+{%	block title	%}
+
+{% if category %}{{ category.name }}{% else %}Products{% endif %}
+{%	endblock %}
+
+{%	block content %}
+
+
+<h1>{%	if	category %}
+    <div class="alert alert-dark text-center" role="alert">
+
+        {{ category.name	}}
+    </div>
+
+
+    {% else %}
+    <div class="alert alert-dark text-center" role="alert">
+        Products
+    </div>
+    {%	endif	%}
+</h1>
+<div class="container-fluid">
+    <div class="row ml-4">
+        {%	for	product	in products %}
+
+
+        <div class="card col-sm-3 mx-2 my-4 p-0 bg-dark " style="max-width: 275px; color: white;">
+            <a  href="{{	product.get_absolute_url }}">
+                <img class="my-img" src="{%	if product.image %}{{ product.image.url }}
+                    {% else	%}{% static	'img/no_img.png' %}{% endif	%}">
+            </a>
+            <div class="card-body">
+                <h5 class="card-title"><a style="text-decoration: none; color: white;" href="{{ product.get_absolute_url }}">{{	product.name	}}</a></h5>
+                <p class="card-text">${{ product.price }}</p>
+                <a href="{{	product.get_absolute_url }}" class="btn btn-primary">Details</a>
+            </div>
+        </div>
+
+        {%	endfor	%}
+
+
+
+    </div>
+</div>
+
+{%	endblock	%}

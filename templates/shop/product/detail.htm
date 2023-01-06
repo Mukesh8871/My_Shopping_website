@@ -1,0 +1,39 @@
+{%	extends	"shop/base.htm"	%}
+{%	load static	%}
+{%	block	title	%}
+{{	product.name	}}
+{%	endblock	%}
+{%	block content	%}
+
+
+
+<div class="card mb-3 add-card-box mt-4 ml-2" style="border: 4px solid black; border-radius: 12px;"> 
+	<div class="row no-gutters">
+		<div class="col-md-4">
+			<img class="card-img" style="height: 450px;"
+				src="{%	if	product.image	%}{{	product.image.url	}}{%	else	%} {%	static 'img/no_img.png' %}{% endif %}">
+		</div>
+		<div class="col-md-8">
+			<div class="card-body" style="height: 450px;">
+
+				<h1 class="card-title mt-4 ">{{	product.name }}</h1>
+				<h3 class="card-text"><small class="text-muted"><a href="{{	product.category.get_absolute_url	}}">
+							{{product.category}}</a></small></h3>
+
+				<h4 class="card-text">{{	product.description|linebreaks	}}</h4>
+
+				<h3>${{	product.price	}}</h3>
+
+				<form action="{%	url	'cart:cart_add'	product.id	%}" method="post">
+					<h4 class="badge badge-secondary "> {{	cart_product_form	}}</h4>
+					{%	csrf_token	%}
+				<input class="btn btn-danger" type="submit" value="Add To Cart">
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{%	endblock	%}
